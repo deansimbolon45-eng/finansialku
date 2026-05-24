@@ -20,7 +20,7 @@ export default function Sidebar() {
 
   return (
     <aside className="w-64 h-full flex flex-col border-r-4 border-[#2B3440] bg-white">
-      <div className="p-6 border-b-4 border-[#2B3440]">
+      <div className="p-4 border-b-4 border-[#2B3440] flex items-center">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-[#22C55E] rounded-neu-sm border-3 border-[#2B3440] flex items-center justify-center text-xl">
             💰
