@@ -1,11 +1,9 @@
 ﻿'use client';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
-import { Bell, LogOut, User, ChevronDown, Menu, X } from 'lucide-react';
+import { Bell, LogOut, User, ChevronDown, Menu, X, LayoutDashboard, ArrowLeftRight, PiggyBank, BarChart3, Settings } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ArrowLeftRight, PiggyBank, BarChart3, Settings } from 'lucide-react';
 import type { Profile } from '@/types/database';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
 
@@ -40,36 +38,33 @@ export default function Header({ profile, user }: HeaderProps) {
 
   return (
     <>
-      <header className="h-16 border-b-4 border-[#2B3440] bg-white flex items-center justify-between px-4 md:px-6 overflow-visible">
-        <div className="flex items-center gap-3">
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="md:hidden w-10 h-10 flex items-center justify-center rounded-[10px] border-2 border-[#2B3440]">
+      <header style={{ height: '64px', borderBottom: '4px solid #2B3440', background: 'white', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', position: 'relative', zIndex: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button onClick={() => setMobileMenuOpen(true)} style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px solid #2B3440', borderRadius: '10px', background: 'white', cursor: 'pointer' }}>
             <Menu size={20} />
           </button>
           <div>
-            <h2 className="font-fredoka text-base md:text-lg font-bold text-[#2B3440]">Halo, {displayName}! 👋</h2>
-            <p className="font-poppins text-xs text-[#6B7280] hidden sm:block">
-              {new Date().toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
-            </p>
+            <h2 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '16px', fontWeight: 'bold', color: '#2B3440', margin: 0 }}>Halo, {displayName}! 👋</h2>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button className="w-10 h-10 neu-card flex items-center justify-center hover:bg-[#DCFCE7] transition-colors">
-            <Bell size={18} className="text-[#2B3440]" />
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <button className="neu-card" style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Bell size={18} />
           </button>
-          <div className="relative">
-            <button onClick={() => setDropdownOpen(!dropdownOpen)} className="flex items-center gap-2 neu-card px-3 py-2 hover:bg-[#DCFCE7] transition-colors">
-              <div className="w-8 h-8 rounded-full bg-[#22C55E] border-2 border-[#2B3440] flex items-center justify-center text-white font-fredoka font-bold text-sm">
+          <div style={{ position: 'relative' }}>
+            <button onClick={() => setDropdownOpen(!dropdownOpen)} className="neu-card" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 12px' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '50%', background: '#22C55E', border: '2px solid #2B3440', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontFamily: 'Fredoka', fontWeight: 'bold', fontSize: '14px' }}>
                 {initials}
               </div>
-              <ChevronDown size={16} className="text-[#6B7280]" />
+              <ChevronDown size={16} color="#6B7280" />
             </button>
             {dropdownOpen && (
-              <div className="absolute right-0 top-12 neu-card w-48 py-2 z-50 bg-white">
-                <button onClick={() => { setDropdownOpen(false); router.push('/pengaturan'); }} className="w-full flex items-center gap-2 px-4 py-2 hover:bg-[#F3F4F6] font-poppins text-sm text-[#2B3440]">
+              <div className="neu-card" style={{ position: 'absolute', right: 0, top: '48px', width: '180px', padding: '8px 0', background: 'white', zIndex: 100 }}>
+                <button onClick={() => { setDropdownOpen(false); router.push('/pengaturan'); }} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Poppins', fontSize: '14px', color: '#2B3440' }}>
                   <User size={16} /> Profil Saya
                 </button>
-                <hr className="my-1 border-[#E5E7EB]" />
-                <button onClick={handleLogout} className="w-full flex items-center gap-2 px-4 py-2 hover:bg-red-50 font-poppins text-sm text-[#EF4444]">
+                <hr style={{ margin: '4px 0', border: 'none', borderTop: '1px solid #E5E7EB' }} />
+                <button onClick={handleLogout} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 16px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'Poppins', fontSize: '14px', color: '#EF4444' }}>
                   <LogOut size={16} /> Keluar
                 </button>
               </div>
@@ -79,17 +74,17 @@ export default function Header({ profile, user }: HeaderProps) {
       </header>
 
       {mobileMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-50">
-          <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setMobileMenuOpen(false)} />
-          <div className="absolute left-0 top-0 h-full w-64 bg-white border-r-4 border-[#2B3440] flex flex-col">
-            <div className="p-4 border-b-4 border-[#2B3440] flex items-center justify-between">
-              <h1 className="font-fredoka text-xl font-bold text-[#2B3440]">Finansialku</h1>
-              <button onClick={() => setMobileMenuOpen(false)}><X size={24} /></button>
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 9999 }}>
+          <div onClick={() => setMobileMenuOpen(false)} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }} />
+          <div style={{ position: 'absolute', left: 0, top: 0, height: '100%', width: '260px', background: 'white', borderRight: '4px solid #2B3440', display: 'flex', flexDirection: 'column', zIndex: 10000 }}>
+            <div style={{ padding: '16px', borderBottom: '4px solid #2B3440', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <h1 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '20px', fontWeight: 'bold', color: '#2B3440', margin: 0 }}>Finansialku</h1>
+              <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}><X size={24} /></button>
             </div>
-            <nav className="flex-1 p-4 space-y-2">
+            <nav style={{ flex: 1, padding: '16px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {navItems.map(({ href, icon: Icon, label }) => (
                 <Link key={href} href={href} onClick={() => setMobileMenuOpen(false)}
-                  className={`nav-link ${pathname === href ? 'active' : ''}`}>
+                  style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '10px 14px', borderRadius: '10px', fontFamily: 'Fredoka, sans-serif', fontSize: '16px', fontWeight: 500, color: pathname === href ? 'white' : '#2B3440', background: pathname === href ? '#22C55E' : 'transparent', textDecoration: 'none', border: pathname === href ? '2px solid #2B3440' : '2px solid transparent' }}>
                   <Icon size={20} />
                   <span>{label}</span>
                 </Link>
