@@ -18,7 +18,7 @@ export default async function DashboardLayout({
     .single();
   return (
     <div style={{ display: 'flex', height: '100vh', background: '#FDFBF7', overflow: 'hidden' }}>
-      <div id="sidebar-wrapper" style={{ display: 'flex' }} className="sidebar-desktop">
+      <div className="sidebar-desktop">
         <Sidebar />
       </div>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflow: 'hidden' }}>
