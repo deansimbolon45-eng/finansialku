@@ -22,7 +22,7 @@ export default function Sidebar() {
     <aside className="w-64 h-full flex flex-col border-r-4 border-[#2B3440] bg-white">
       <div className="p-4 border-b-4 border-[#2B3440] flex items-center">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-[#22C55E] rounded-[10px] border-2 border-[#2B3440] flex items-center justify-center text-xl">
+          <div style={{ width: '40px', height: '40px', background: '#22C55E', borderRadius: '10px', border: '2px solid #2B3440', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', flexShrink: 0 }}>
             💰
           </div>
           <div>
