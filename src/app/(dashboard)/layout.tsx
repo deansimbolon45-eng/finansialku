@@ -17,13 +17,13 @@ export default async function DashboardLayout({
     .eq('id', user.id)
     .single();
   return (
-    <div className="flex h-screen" style={{ background: '#FDFBF7', overflow: 'clip' }}>
-      <div className="hidden md:block">
+    <div style={{ display: 'flex', height: '100vh', background: '#FDFBF7', overflow: 'hidden' }}>
+      <div id="sidebar-wrapper" style={{ display: 'flex' }} className="sidebar-desktop">
         <Sidebar />
       </div>
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflow: 'hidden' }}>
         <Header profile={profile} user={user} />
-        <main className="flex-1 overflow-y-auto p-4 md:p-6">
+        <main style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>
           {children}
         </main>
       </div>
