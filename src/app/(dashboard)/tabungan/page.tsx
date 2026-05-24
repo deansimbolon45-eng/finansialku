@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useSavingsGoals } from '@/hooks/useSavingsGoals';
 import { formatCurrency, formatDate } from '@/lib/formatters';
 import type { SavingsGoal } from '@/types/database';
@@ -34,9 +35,9 @@ function GoalForm({ editData, onClose, onSuccess }: { editData?: SavingsGoal; on
     if (!error) onSuccess();
   }
 
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
-      <div className="neu-card w-full max-w-md bg-white" style={{ maxHeight: '90vh', overflowY: 'auto' }}>
+  return createPortal(
+    <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: '16px', boxSizing: 'border-box' }}>
+      <div className="neu-card bg-white w-full" style={{ maxWidth: '480px', maxHeight: '90vh', overflowY: 'auto' }}>
         <div className="flex items-center justify-between p-5 border-b-[3px] border-[#2B3440]">
           <h3 className="font-fredoka text-xl font-bold text-[#2B3440]">{editData ? 'Edit Target' : 'Buat Target Tabungan'} 🎯</h3>
           <button onClick={onClose}><X size={22} /></button>
@@ -88,7 +89,8 @@ function GoalForm({ editData, onClose, onSuccess }: { editData?: SavingsGoal; on
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
