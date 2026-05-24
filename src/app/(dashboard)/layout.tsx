@@ -18,7 +18,7 @@ export default async function DashboardLayout({
     .single();
   return (
     <div className="flex h-screen" style={{ background: '#FDFBF7', overflow: 'clip' }}>
-      <div className="hidden md:flex">
+      <div className="hidden md:block">
         <Sidebar />
       </div>
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
