@@ -1,6 +1,6 @@
 ﻿import { createClient } from '@/lib/supabase/server';
 import { redirect } from 'next/navigation';
-import Sidebar from '@/components/layout/Sidebar';
+import SidebarWrapper from '@/components/layout/SidebarWrapper';
 import Header from '@/components/layout/Header';
 
 export default async function DashboardLayout({
@@ -18,9 +18,7 @@ export default async function DashboardLayout({
     .single();
   return (
     <div style={{ display: 'flex', height: '100vh', background: '#FDFBF7', overflow: 'hidden' }}>
-      <div className="sidebar-desktop">
-        <Sidebar />
-      </div>
+      <SidebarWrapper />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0, overflow: 'hidden' }}>
         <Header profile={profile} user={user} />
         <main style={{ flex: 1, overflowY: 'auto', padding: '16px' }}>

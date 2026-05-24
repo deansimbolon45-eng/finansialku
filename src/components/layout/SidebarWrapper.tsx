@@ -1,0 +1,17 @@
+﻿'use client';
+import { useEffect, useState } from 'react';
+import Sidebar from './Sidebar';
+
+export default function SidebarWrapper() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  if (!isDesktop) return null;
+  return <Sidebar />;
+}
