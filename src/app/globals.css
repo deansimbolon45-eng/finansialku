@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Colors */
   --background: #FDFBF7;
   --foreground: #1a1a1a;
   --primary: #22C55E;
@@ -17,6 +18,8 @@
   --card: #FFFFFF;
   --muted: #F3F4F6;
   --shadow: #2B3440;
+
+  /* Neubrutalism */
   --border-width: 3px;
   --shadow-offset: 4px;
   --radius: 16px;
@@ -24,7 +27,9 @@
   --radius-lg: 24px;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   background-color: var(--background);
@@ -32,8 +37,15 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Fredoka', sans-serif;
+}
 
+/* ==========================================
+   NEUBRUTALISM COMPONENTS
+   ========================================== */
+
+/* Card */
 .neu-card {
   background: var(--card);
   border: var(--border-width) solid var(--border);
@@ -43,10 +55,17 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
 }
 
 .neu-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px var(--shadow);
+  transform: translate(-3px, -3px);
+  box-shadow: 7px 7px 0px var(--shadow);
+  cursor: pointer;
 }
 
+.neu-card:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px var(--shadow);
+}
+
+/* Button Primary */
 .neu-btn-primary {
   background: var(--primary);
   color: white;
@@ -65,8 +84,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
 }
 
 .neu-btn-primary:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px var(--border);
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0px var(--border);
 }
 
 .neu-btn-primary:active {
@@ -74,6 +93,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
   box-shadow: 1px 1px 0px var(--border);
 }
 
+/* Button Secondary */
 .neu-btn-secondary {
   background: white;
   color: var(--border);
@@ -92,8 +112,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
 }
 
 .neu-btn-secondary:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px var(--border);
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0px var(--border);
 }
 
 .neu-btn-secondary:active {
@@ -101,6 +121,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
   box-shadow: 1px 1px 0px var(--border);
 }
 
+/* Button Danger */
 .neu-btn-danger {
   background: var(--danger);
   color: white;
@@ -118,8 +139,8 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
 }
 
 .neu-btn-danger:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px var(--border);
+  transform: translate(-3px, -3px);
+  box-shadow: 6px 6px 0px var(--border);
 }
 
 .neu-btn-danger:active {
@@ -127,6 +148,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
   box-shadow: 1px 1px 0px var(--border);
 }
 
+/* Input */
 .neu-input {
   width: 100%;
   background: white;
@@ -136,14 +158,16 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
   font-family: 'Poppins', sans-serif;
   font-size: 0.95rem;
   outline: none;
-  transition: box-shadow 0.15s ease;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 
 .neu-input:focus {
   box-shadow: 3px 3px 0px var(--primary);
   border-color: var(--primary);
+  transform: translate(-1px, -1px);
 }
 
+/* Badge */
 .neu-badge {
   display: inline-flex;
   align-items: center;
@@ -156,6 +180,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
   font-weight: 600;
 }
 
+/* Sidebar link */
 .nav-link {
   display: flex;
   align-items: center;
@@ -184,6 +209,7 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
   box-shadow: 3px 3px 0px var(--border);
 }
 
+/* Progress bar */
 .neu-progress {
   background: var(--muted);
   border: 2px solid var(--border);
@@ -199,10 +225,21 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
   transition: width 0.5s ease;
 }
 
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--muted); }
-::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
 
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+/* Floating Button */
 .floating-btn {
   position: fixed;
   bottom: 32px;
@@ -222,20 +259,27 @@ h1, h2, h3, h4, h5, h6 { font-family: 'Fredoka', sans-serif; }
 }
 
 .floating-btn:hover {
-  transform: translate(-2px, -2px) rotate(90deg);
-  box-shadow: 6px 6px 0px var(--border);
+  transform: translate(-3px, -3px) rotate(90deg);
+  box-shadow: 7px 7px 0px var(--border);
 }
 
 .floating-btn:active {
   transform: translate(2px, 2px) rotate(90deg);
   box-shadow: 2px 2px 0px var(--border);
 }
-.sidebar-desktop {
-  display: none;
+
+/* Animasi masuk halaman */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-@media (min-width: 768px) {
-  .sidebar-desktop {
-    display: flex;
-  }
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease forwards;
 }
