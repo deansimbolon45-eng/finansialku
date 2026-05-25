@@ -30,37 +30,46 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 
+        {/* Saldo */}
         <div className="neu-card p-5" style={{ background: '#22C55E' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <p className="font-fredoka text-white text-base font-bold opacity-90">Saldo Saat Ini</p>
+            <p style={{ fontFamily: 'Fredoka', fontWeight: 700, fontSize: '20px', color: '#2B3440' }}>Saldo Saat Ini</p>
             <div style={{ width: '48px', height: '48px', background: 'rgba(255,255,255,0.2)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Wallet size={28} color="white" />
+              <Wallet size={28} color="#2B3440" />
             </div>
           </div>
-          <p className="font-fredoka font-bold text-white" style={{ fontSize: '28px' }}>{loading ? '...' : formatCurrency(balance)}</p>
-          <p className="font-poppins text-white" style={{ fontSize: '12px', marginTop: '4px' }}>Bulan ini</p>
+          <p style={{ fontFamily: 'Fredoka', fontWeight: 400, fontSize: '28px', color: '#2B3440' }}>
+            {loading ? '...' : formatCurrency(balance)}
+          </p>
+          <p style={{ fontFamily: 'Poppins', fontSize: '14px', color: '#2B3440', marginTop: '4px' }}>Bulan ini</p>
         </div>
 
+        {/* Pemasukan */}
         <div className="neu-card p-5">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <p className="font-fredoka text-[#6B7280] text-base font-bold">Total Pemasukan</p>
+            <p style={{ fontFamily: 'Fredoka', fontWeight: 700, fontSize: '20px', color: '#2B3440' }}>Total Pemasukan</p>
             <div style={{ width: '48px', height: '48px', background: '#DCFCE7', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <TrendingUp size={28} color="#22C55E" />
             </div>
           </div>
-          <p className="font-fredoka font-bold text-[#22C55E]" style={{ fontSize: '24px' }}>{loading ? '...' : formatCurrency(totalIncome)}</p>
-          <p className="font-poppins text-[#9CA3AF]" style={{ fontSize: '12px', marginTop: '4px' }}>Bulan ini</p>
+          <p style={{ fontFamily: 'Fredoka', fontWeight: 400, fontSize: '24px', color: '#22C55E' }}>
+            {loading ? '...' : formatCurrency(totalIncome)}
+          </p>
+          <p style={{ fontFamily: 'Poppins', fontSize: '14px', color: '#1a1a1a', marginTop: '4px' }}>Bulan ini</p>
         </div>
 
+        {/* Pengeluaran */}
         <div className="neu-card p-5">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <p className="font-fredoka text-[#6B7280] text-base font-bold">Total Pengeluaran</p>
+            <p style={{ fontFamily: 'Fredoka', fontWeight: 700, fontSize: '20px', color: '#2B3440' }}>Total Pengeluaran</p>
             <div style={{ width: '48px', height: '48px', background: '#FEF2F2', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <TrendingDown size={28} color="#EF4444" />
             </div>
           </div>
-          <p className="font-fredoka font-bold text-[#EF4444]" style={{ fontSize: '24px' }}>{loading ? '...' : formatCurrency(totalExpense)}</p>
-          <p className="font-poppins text-[#9CA3AF]" style={{ fontSize: '12px', marginTop: '4px' }}>Bulan ini</p>
+          <p style={{ fontFamily: 'Fredoka', fontWeight: 400, fontSize: '24px', color: '#EF4444' }}>
+            {loading ? '...' : formatCurrency(totalExpense)}
+          </p>
+          <p style={{ fontFamily: 'Poppins', fontSize: '14px', color: '#1a1a1a', marginTop: '4px' }}>Bulan ini</p>
         </div>
 
       </div>
@@ -71,6 +80,8 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+        {/* Transaksi Terbaru */}
         <div className="neu-card p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-fredoka text-lg font-bold text-[#2B3440]">Transaksi Terbaru</h3>
@@ -79,7 +90,9 @@ export default function DashboardPage() {
             </Link>
           </div>
           {loading ? (
-            <div className="space-y-3">{[1,2,3].map(i => <div key={i} className="h-14 bg-[#F3F4F6] rounded-[10px] animate-pulse" />)}</div>
+            <div className="space-y-3">
+              {[1,2,3].map(i => <div key={i} className="h-14 bg-[#F3F4F6] rounded-[10px] animate-pulse" />)}
+            </div>
           ) : recentTransactions.length === 0 ? (
             <div className="text-center py-8">
               <p className="text-4xl mb-2">💸</p>
@@ -93,8 +106,12 @@ export default function DashboardPage() {
                     {tx.categories?.icon || (tx.type === 'income' ? '💰' : '💸')}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-fredoka font-semibold text-[#2B3440] text-sm truncate">{tx.description || tx.categories?.name || 'Transaksi'}</p>
-                    <p className="font-poppins text-xs text-[#9CA3AF]">{new Date(tx.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}</p>
+                    <p className="font-fredoka font-semibold text-[#2B3440] text-sm truncate">
+                      {tx.description || tx.categories?.name || 'Transaksi'}
+                    </p>
+                    <p className="font-poppins text-xs text-[#9CA3AF]">
+                      {new Date(tx.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
+                    </p>
                   </div>
                   <p className={`font-fredoka font-bold text-sm flex-shrink-0 ${tx.type === 'income' ? 'text-[#22C55E]' : 'text-[#EF4444]'}`}>
                     {tx.type === 'income' ? '+' : '-'}{formatCurrency(tx.amount)}
@@ -105,6 +122,7 @@ export default function DashboardPage() {
           )}
         </div>
 
+        {/* Target Tabungan */}
         <div className="neu-card p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-fredoka text-lg font-bold text-[#2B3440]">Target Tabungan</h3>
@@ -143,10 +161,16 @@ export default function DashboardPage() {
             </div>
           )}
         </div>
+
       </div>
 
       <FloatingButton onClick={() => setShowForm(true)} />
-      {showForm && <TransactionForm onClose={() => setShowForm(false)} onSuccess={() => { setShowForm(false); refetch(); }} />}
+      {showForm && (
+        <TransactionForm
+          onClose={() => setShowForm(false)}
+          onSuccess={() => { setShowForm(false); refetch(); }}
+        />
+      )}
     </div>
   );
 }
