@@ -29,38 +29,40 @@ export default function DashboardPage() {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
         <div className="neu-card p-5" style={{ background: '#22C55E' }}>
-          <div className="flex items-center justify-between mb-3">
-           <p style={{ fontFamily: 'Fredoka, sans-serif', color: 'white', fontSize: '16px', fontWeight: 400 }}>Saldo Saat Ini</p>
-<div className="w-12 h-12 bg-white bg-opacity-20 rounded-[10px] flex items-center justify-center">
-  <Wallet size={26} className="text-white" />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+            <p className="font-fredoka font-bold text-white" style={{ fontSize: '18px' }}>Saldo Saat Ini</p>
+            <div style={{ width: '48px', height: '48px', background: 'rgba(255,255,255,0.2)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Wallet size={28} color="white" />
             </div>
           </div>
-          <p className="font-fredoka text-3xl font-bold text-white">{loading ? '...' : formatCurrency(balance)}</p>
-          <p className="font-poppins text-white text-xs opacity-75 mt-1">Bulan ini</p>
+          <p className="font-fredoka font-bold text-white" style={{ fontSize: '28px' }}>{loading ? '...' : formatCurrency(balance)}</p>
+          <p className="font-poppins text-white" style={{ fontSize: '12px', marginTop: '4px' }}>Bulan ini</p>
         </div>
 
         <div className="neu-card p-5">
-          <div className="flex items-center justify-between mb-3">
-            <p style={{ fontFamily: 'Fredoka, sans-serif', color: '#2B3440', fontSize: '16px', fontWeight: 400 }}>Total Pemasukan</p>
-<div className="w-12 h-12 bg-[#DCFCE7] rounded-[10px] flex items-center justify-center">
-  <TrendingUp size={26} className="text-[#22C55E]" />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+            <p className="font-fredoka font-bold text-[#2B3440]" style={{ fontSize: '18px' }}>Total Pemasukan</p>
+            <div style={{ width: '48px', height: '48px', background: '#DCFCE7', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <TrendingUp size={28} color="#22C55E" />
             </div>
           </div>
-          <p className="font-fredoka text-2xl font-bold text-[#22C55E]">{loading ? '...' : formatCurrency(totalIncome)}</p>
-          <p className="font-poppins text-[#9CA3AF] text-xs mt-1">Bulan ini</p>
+          <p className="font-fredoka font-bold text-[#22C55E]" style={{ fontSize: '24px' }}>{loading ? '...' : formatCurrency(totalIncome)}</p>
+          <p className="font-poppins text-[#9CA3AF]" style={{ fontSize: '12px', marginTop: '4px' }}>Bulan ini</p>
         </div>
 
         <div className="neu-card p-5">
-          <div className="flex items-center justify-between mb-3">
-            <p style={{ fontFamily: 'Fredoka, sans-serif', color: '#2B3440', fontSize: '16px', fontWeight: 400 }}>Total Pengeluaran</p>
-<div className="w-12 h-12 bg-red-50 rounded-[10px] flex items-center justify-center">
-  <TrendingDown size={26} className="text-[#EF4444]" />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
+            <p className="font-fredoka font-bold text-[#2B3440]" style={{ fontSize: '18px' }}>Total Pengeluaran</p>
+            <div style={{ width: '48px', height: '48px', background: '#FEF2F2', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <TrendingDown size={28} color="#EF4444" />
             </div>
           </div>
-          <p className="font-fredoka text-2xl font-bold text-[#EF4444]">{loading ? '...' : formatCurrency(totalExpense)}</p>
-          <p className="font-poppins text-[#9CA3AF] text-xs mt-1">Bulan ini</p>
+          <p className="font-fredoka font-bold text-[#EF4444]" style={{ fontSize: '24px' }}>{loading ? '...' : formatCurrency(totalExpense)}</p>
+          <p className="font-poppins text-[#9CA3AF]" style={{ fontSize: '12px', marginTop: '4px' }}>Bulan ini</p>
         </div>
+
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
