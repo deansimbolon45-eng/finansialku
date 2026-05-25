@@ -31,9 +31,9 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="neu-card p-5" style={{ background: '#22C55E' }}>
           <div className="flex items-center justify-between mb-3">
-            <p className="font-fredoka text-white text-sm font-semibold opacity-90">Saldo Saat Ini</p>
-            <div className="w-10 h-10 bg-white bg-opacity-20 rounded-[10px] flex items-center justify-center">
-              <Wallet size={20} className="text-white" />
+           <p className="font-fredoka text-white text-sm font-light opacity-90">Saldo Saat Ini</p>
+<div className="w-12 h-12 bg-white bg-opacity-20 rounded-[10px] flex items-center justify-center">
+  <Wallet size={26} className="text-white" />
             </div>
           </div>
           <p className="font-fredoka text-3xl font-bold text-white">{loading ? '...' : formatCurrency(balance)}</p>
@@ -42,9 +42,9 @@ export default function DashboardPage() {
 
         <div className="neu-card p-5">
           <div className="flex items-center justify-between mb-3">
-            <p className="font-fredoka text-[#6B7280] text-sm font-semibold">Total Pemasukan</p>
-            <div className="w-10 h-10 bg-[#DCFCE7] rounded-[10px] flex items-center justify-center">
-              <TrendingUp size={20} className="text-[#22C55E]" />
+            <p className="font-fredoka text-[#6B7280] text-sm font-light">Total Pemasukan</p>
+<div className="w-12 h-12 bg-[#DCFCE7] rounded-[10px] flex items-center justify-center">
+  <TrendingUp size={26} className="text-[#22C55E]" />
             </div>
           </div>
           <p className="font-fredoka text-2xl font-bold text-[#22C55E]">{loading ? '...' : formatCurrency(totalIncome)}</p>
@@ -53,9 +53,9 @@ export default function DashboardPage() {
 
         <div className="neu-card p-5">
           <div className="flex items-center justify-between mb-3">
-            <p className="font-fredoka text-[#6B7280] text-sm font-semibold">Total Pengeluaran</p>
-            <div className="w-10 h-10 bg-red-50 rounded-[10px] flex items-center justify-center">
-              <TrendingDown size={20} className="text-[#EF4444]" />
+            <p className="font-fredoka text-[#6B7280] text-sm font-light">Total Pengeluaran</p>
+<div className="w-12 h-12 bg-red-50 rounded-[10px] flex items-center justify-center">
+  <TrendingDown size={26} className="text-[#EF4444]" />
             </div>
           </div>
           <p className="font-fredoka text-2xl font-bold text-[#EF4444]">{loading ? '...' : formatCurrency(totalExpense)}</p>
