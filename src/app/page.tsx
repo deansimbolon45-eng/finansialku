@@ -32,7 +32,7 @@ export default function DashboardPage() {
 
         <div className="neu-card p-5" style={{ background: '#22C55E' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <p className="font-fredoka font-bold text-white" style={{ fontSize: '18px' }}>Saldo Saat Ini</p>
+            <p className="font-fredoka text-white text-base font-bold opacity-90">Saldo Saat Ini</p>
             <div style={{ width: '48px', height: '48px', background: 'rgba(255,255,255,0.2)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Wallet size={28} color="white" />
             </div>
@@ -43,7 +43,7 @@ export default function DashboardPage() {
 
         <div className="neu-card p-5">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <p className="font-fredoka font-bold text-[#2B3440]" style={{ fontSize: '18px' }}>Total Pemasukan</p>
+            <p className="font-fredoka text-[#6B7280] text-base font-bold">Total Pemasukan</p>
             <div style={{ width: '48px', height: '48px', background: '#DCFCE7', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <TrendingUp size={28} color="#22C55E" />
             </div>
@@ -54,7 +54,7 @@ export default function DashboardPage() {
 
         <div className="neu-card p-5">
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px' }}>
-            <p className="font-fredoka font-bold text-[#2B3440]" style={{ fontSize: '18px' }}>Total Pengeluaran</p>
+            <p className="font-fredoka text-[#6B7280] text-base font-bold">Total Pengeluaran</p>
             <div style={{ width: '48px', height: '48px', background: '#FEF2F2', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <TrendingDown size={28} color="#EF4444" />
             </div>
