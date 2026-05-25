@@ -17,6 +17,14 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
+  // Hover states
+  const [hoverCard, setHoverCard] = useState(false);
+  const [hoverBtn, setHoverBtn] = useState(false);
+  const [hoverLogo, setHoverLogo] = useState(false);
+  const [hoverStat1, setHoverStat1] = useState(false);
+  const [hoverStat2, setHoverStat2] = useState(false);
+  const [hoverStat3, setHoverStat3] = useState(false);
+
   if (isLoading) return <LoadingScreen onFinish={() => setIsLoading(false)} />;
 
   async function handleLogin(e: React.FormEvent) {
@@ -41,6 +49,21 @@ export default function LoginPage() {
       fontFamily: 'Poppins, sans-serif',
     }}>
 
+      <style>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(12deg); }
+          50% { transform: translateY(-10px) rotate(12deg); }
+        }
+        @keyframes fadeInLeft {
+          from { opacity: 0; transform: translateX(-30px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInRight {
+          from { opacity: 0; transform: translateX(30px); }
+          to { opacity: 1; transform: translateX(0); }
+        }
+      `}</style>
+
       {/* Kiri — Hero Section */}
       <div style={{
         flex: 1,
@@ -52,6 +75,7 @@ export default function LoginPage() {
         padding: '60px',
         position: 'relative',
         overflow: 'hidden',
+        animation: 'fadeInLeft 0.6s ease',
       }}
         className="hidden md:flex"
       >
@@ -70,6 +94,8 @@ export default function LoginPage() {
           borderRadius: '50%',
           border: '4px solid rgba(255,255,255,0.2)',
         }} />
+
+        {/* Floating emoji */}
         <div style={{
           position: 'absolute', bottom: '120px', right: '40px',
           width: '100px', height: '100px',
@@ -78,21 +104,28 @@ export default function LoginPage() {
           border: '3px solid rgba(255,255,255,0.3)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           fontSize: '40px',
-          transform: 'rotate(12deg)',
+          animation: 'float 3s ease-in-out infinite',
         }}>
           📈
         </div>
 
         {/* Logo */}
-        <div style={{
-          display: 'flex', alignItems: 'center', gap: '12px',
-          background: 'white',
-          border: '3px solid #2B3440',
-          borderRadius: '16px',
-          padding: '10px 20px',
-          boxShadow: '4px 4px 0px #2B3440',
-          marginBottom: '48px',
-        }}>
+        <div
+          onMouseEnter={() => setHoverLogo(true)}
+          onMouseLeave={() => setHoverLogo(false)}
+          style={{
+            display: 'inline-flex', alignItems: 'center', gap: '12px',
+            background: 'white',
+            border: '3px solid #2B3440',
+            borderRadius: '16px',
+            padding: '10px 20px',
+            boxShadow: hoverLogo ? '6px 6px 0px #2B3440' : '4px 4px 0px #2B3440',
+            marginBottom: '48px',
+            transform: hoverLogo ? 'translate(-2px, -2px)' : 'translate(0, 0)',
+            transition: 'all 0.15s ease',
+            cursor: 'pointer',
+          }}
+        >
           <span style={{ fontSize: '28px' }}>💰</span>
           <span style={{ fontFamily: 'Fredoka', fontWeight: 700, fontSize: '24px', color: '#2B3440' }}>
             Finansialku
@@ -125,34 +158,54 @@ export default function LoginPage() {
         </p>
 
         {/* Stats */}
-        <div style={{ display: 'flex', gap: '32px' }}>
+        <div style={{ display: 'flex', gap: '16px', marginBottom: '40px' }}>
           {[
-            { num: '10K+', label: 'Pengguna Aktif' },
-            { num: '500+', label: 'Transaksi/Hari' },
-            { num: '98%', label: 'Kepuasan' },
+            { num: '10K+', label: 'Pengguna Aktif', hover: hoverStat1, setHover: setHoverStat1 },
+            { num: '500+', label: 'Transaksi/Hari', hover: hoverStat2, setHover: setHoverStat2 },
+            { num: '98%', label: 'Kepuasan', hover: hoverStat3, setHover: setHoverStat3 },
           ].map(stat => (
-            <div key={stat.label}>
-              <p style={{ fontFamily: 'Fredoka', fontSize: '28px', fontWeight: 700, color: 'white', margin: 0 }}>
+            <div
+              key={stat.label}
+              onMouseEnter={() => stat.setHover(true)}
+              onMouseLeave={() => stat.setHover(false)}
+              style={{
+                background: 'rgba(255,255,255,0.2)',
+                border: '2px solid rgba(255,255,255,0.4)',
+                borderRadius: '12px',
+                padding: '12px 16px',
+                transform: stat.hover ? 'translate(-2px, -2px)' : 'translate(0,0)',
+                boxShadow: stat.hover ? '4px 4px 0px rgba(43,52,64,0.3)' : '2px 2px 0px rgba(43,52,64,0.2)',
+                transition: 'all 0.15s ease',
+                cursor: 'default',
+              }}
+            >
+              <p style={{ fontFamily: 'Fredoka', fontSize: '26px', fontWeight: 700, color: 'white', margin: 0 }}>
                 {stat.num}
               </p>
-              <p style={{ fontSize: '13px', color: '#2B3440', opacity: 0.8, margin: 0 }}>
+              <p style={{ fontSize: '12px', color: '#2B3440', opacity: 0.9, margin: 0 }}>
                 {stat.label}
               </p>
             </div>
           ))}
         </div>
 
-        {/* Card preview */}
-        <div style={{
-          marginTop: '48px',
-          background: 'white',
-          border: '3px solid #2B3440',
-          borderRadius: '20px',
-          boxShadow: '6px 6px 0px #2B3440',
-          padding: '20px 24px',
-          width: '100%',
-          maxWidth: '380px',
-        }}>
+        {/* Preview Card */}
+        <div
+          onMouseEnter={() => setHoverCard(true)}
+          onMouseLeave={() => setHoverCard(false)}
+          style={{
+            background: 'white',
+            border: '3px solid #2B3440',
+            borderRadius: '20px',
+            boxShadow: hoverCard ? '8px 8px 0px #2B3440' : '6px 6px 0px #2B3440',
+            padding: '20px 24px',
+            width: '100%',
+            maxWidth: '380px',
+            transform: hoverCard ? 'translate(-3px, -3px)' : 'translate(0, 0)',
+            transition: 'all 0.15s ease',
+            cursor: 'pointer',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '12px' }}>
             <div style={{
               width: '44px', height: '44px',
@@ -200,10 +253,11 @@ export default function LoginPage() {
         justifyContent: 'center',
         padding: '48px 40px',
         background: '#FDFBF7',
+        animation: 'fadeInRight 0.6s ease',
       }}>
 
         {/* Logo mobile only */}
-        <div className="flex md:hidden items-center gap-3 mb-8"
+        <div className="flex md:hidden"
           style={{
             background: 'white',
             border: '3px solid #2B3440',
@@ -211,7 +265,10 @@ export default function LoginPage() {
             padding: '10px 16px',
             boxShadow: '4px 4px 0px #2B3440',
             display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
             width: 'fit-content',
+            marginBottom: '32px',
           }}
         >
           <span style={{ fontSize: '24px' }}>💰</span>
@@ -275,6 +332,17 @@ export default function LoginPage() {
                 outline: 'none',
                 background: 'white',
                 boxSizing: 'border-box',
+                transition: 'all 0.15s ease',
+              }}
+              onFocus={e => {
+                e.target.style.boxShadow = '3px 3px 0px #22C55E';
+                e.target.style.borderColor = '#22C55E';
+                e.target.style.transform = 'translate(-1px, -1px)';
+              }}
+              onBlur={e => {
+                e.target.style.boxShadow = 'none';
+                e.target.style.borderColor = '#2B3440';
+                e.target.style.transform = 'translate(0, 0)';
               }}
             />
           </div>
@@ -307,6 +375,17 @@ export default function LoginPage() {
                   outline: 'none',
                   background: 'white',
                   boxSizing: 'border-box',
+                  transition: 'all 0.15s ease',
+                }}
+                onFocus={e => {
+                  e.target.style.boxShadow = '3px 3px 0px #22C55E';
+                  e.target.style.borderColor = '#22C55E';
+                  e.target.style.transform = 'translate(-1px, -1px)';
+                }}
+                onBlur={e => {
+                  e.target.style.boxShadow = 'none';
+                  e.target.style.borderColor = '#2B3440';
+                  e.target.style.transform = 'translate(0, 0)';
                 }}
               />
               <button
@@ -331,6 +410,8 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
+            onMouseEnter={() => setHoverBtn(true)}
+            onMouseLeave={() => setHoverBtn(false)}
             style={{
               width: '100%',
               padding: '14px',
@@ -338,7 +419,7 @@ export default function LoginPage() {
               color: 'white',
               border: '3px solid #2B3440',
               borderRadius: '12px',
-              boxShadow: '4px 4px 0px #2B3440',
+              boxShadow: hoverBtn ? '6px 6px 0px #2B3440' : '4px 4px 0px #2B3440',
               fontFamily: 'Fredoka',
               fontWeight: 700,
               fontSize: '18px',
@@ -347,7 +428,8 @@ export default function LoginPage() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: '8px',
-              transition: 'all 0.1s ease',
+              transform: hoverBtn ? 'translate(-2px, -2px)' : 'translate(0, 0)',
+              transition: 'all 0.15s ease',
               opacity: loading ? 0.8 : 1,
             }}
           >
@@ -374,7 +456,6 @@ export default function LoginPage() {
           </Link>
         </p>
 
-        {/* Bottom note */}
         <p style={{
           marginTop: '48px',
           textAlign: 'center',
