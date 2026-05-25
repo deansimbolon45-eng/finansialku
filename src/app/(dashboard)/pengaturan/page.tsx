@@ -55,85 +55,104 @@ export default function PengaturanPage() {
   }
 
   if (loading) {
-    return <div className="flex items-center justify-center h-64"><div className="w-10 h-10 border-4 border-[#22C55E] border-t-transparent rounded-full animate-spin" /></div>;
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '256px' }}>
+        <div style={{ width: '40px', height: '40px', border: '3px solid #22C55E', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+      </div>
+    );
   }
 
+  const initials = (fullName || profile?.full_name || 'U').slice(0, 2).toUpperCase();
+
   return (
-    <div className="max-w-2xl space-y-5">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '640px' }}>
+
+      {/* Header */}
       <div>
-        <h1 className="font-fredoka text-2xl font-bold text-[#2B3440]">Pengaturan ⚙️</h1>
-        <p className="font-poppins text-sm text-[#9CA3AF]">Kelola profil dan preferensi akun</p>
+        <h1 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '1.75rem', fontWeight: 700, color: '#2B3440', margin: 0 }}>Pengaturan ⚙️</h1>
+        <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '14px', color: '#9CA3AF', margin: 0 }}>Kelola akun dan preferensi kamu</p>
       </div>
 
-      <div className="neu-card p-5">
-        <div className="flex items-center gap-3 mb-5">
-          <div className="w-9 h-9 bg-[#DCFCE7] rounded-[10px] border-2 border-[#2B3440] flex items-center justify-center">
-            <User size={18} className="text-[#22C55E]" />
-          </div>
-          <h2 className="font-fredoka text-lg font-bold text-[#2B3440]">Profil Pengguna</h2>
+      {/* Avatar & info */}
+      <div className="neu-card" style={{ borderRadius: '24px', padding: '24px', display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div style={{ width: '72px', height: '72px', borderRadius: '50%', background: '#22C55E', border: '2px solid #2B3440', boxShadow: '4px 4px 0px #2B3440', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: 'Fredoka, sans-serif', fontWeight: 700, fontSize: '28px', color: 'white', flexShrink: 0 }}>
+          {initials}
         </div>
-
-        <div className="flex items-center gap-4 mb-5">
-          <div className="w-16 h-16 rounded-full border-[3px] border-[#2B3440] bg-[#22C55E] flex items-center justify-center text-white font-fredoka font-bold text-2xl">
-            {fullName.slice(0, 2).toUpperCase() || 'U'}
-          </div>
-          <div>
-            <p className="font-fredoka font-semibold text-[#2B3440]">{fullName || 'Pengguna'}</p>
-            <p className="font-poppins text-sm text-[#9CA3AF]">Foto avatar dari inisial nama</p>
-          </div>
+        <div>
+          <h3 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '1.25rem', fontWeight: 700, color: '#2B3440', margin: 0 }}>{fullName || 'User'}</h3>
+          <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '13px', color: '#9CA3AF', margin: 0 }}>{profile?.id || ''}</p>
+          <span style={{ display: 'inline-block', marginTop: '4px', padding: '2px 12px', background: '#22C55E', border: '2px solid #2B3440', borderRadius: '9999px', fontFamily: 'Fredoka, sans-serif', fontSize: '12px', fontWeight: 600, color: 'white', boxShadow: '2px 2px 0px #2B3440' }}>
+            Premium User ⭐
+          </span>
         </div>
+      </div>
 
-        {message && (
-          <div className={`mb-4 p-3 rounded-[10px] border-2 text-sm font-poppins ${message.includes('✅') ? 'bg-[#DCFCE7] border-[#22C55E] text-[#16A34A]' : 'bg-red-50 border-red-400 text-red-600'}`}>
-            {message}
+      {/* Form profil */}
+      <div className="neu-card" style={{ borderRadius: '24px', padding: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#DCFCE7', border: '2px solid #2B3440', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <User size={18} color="#22C55E" />
           </div>
-        )}
-
-        <form onSubmit={handleSaveProfile} className="space-y-4">
+          <h2 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '1.1rem', fontWeight: 700, color: '#2B3440', margin: 0 }}>Profil Saya</h2>
+        </div>
+        <form onSubmit={handleSaveProfile} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <label className="block font-fredoka font-semibold text-[#2B3440] mb-1">Nama Lengkap</label>
-            <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Nama lengkap kamu" className="neu-input" />
+            <label style={{ display: 'block', fontFamily: 'Fredoka, sans-serif', fontWeight: 600, color: '#2B3440', marginBottom: '6px' }}>Nama Lengkap</label>
+            <input type="text" value={fullName} onChange={e => setFullName(e.target.value)} placeholder="Nama kamu" className="neu-input" />
           </div>
-          <button type="submit" disabled={saving} className="neu-btn-primary">
+          {message && (
+            <div style={{ padding: '12px 16px', background: message.includes('berhasil') ? '#DCFCE7' : '#ffd9df', border: '2px solid #2B3440', borderRadius: '12px', fontFamily: 'Fredoka, sans-serif', fontSize: '14px', color: '#2B3440' }}>
+              {message}
+            </div>
+          )}
+          <button type="submit" disabled={saving} className="neu-btn-primary" style={{ alignSelf: 'flex-start' }}>
             {saving ? <Loader2 size={18} className="animate-spin" /> : <Save size={18} />}
             {saving ? 'Menyimpan...' : 'Simpan Profil'}
           </button>
         </form>
       </div>
 
-      <div className="neu-card p-5">
-        <div className="flex items-center gap-3 mb-5">
-          <div className="w-9 h-9 bg-blue-50 rounded-[10px] border-2 border-[#2B3440] flex items-center justify-center">
-            <Key size={18} className="text-[#3B82F6]" />
+      {/* Ganti password */}
+      <div className="neu-card" style={{ borderRadius: '24px', padding: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#a5d8ff', border: '2px solid #2B3440', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Key size={18} color="#285f80" />
           </div>
-          <h2 className="font-fredoka text-lg font-bold text-[#2B3440]">Ganti Password</h2>
+          <h2 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '1.1rem', fontWeight: 700, color: '#2B3440', margin: 0 }}>Ganti Password</h2>
         </div>
-
-        {passwordMessage && (
-          <div className={`mb-4 p-3 rounded-[10px] border-2 text-sm font-poppins ${passwordMessage.includes('✅') ? 'bg-[#DCFCE7] border-[#22C55E] text-[#16A34A]' : 'bg-red-50 border-red-400 text-red-600'}`}>
-            {passwordMessage}
-          </div>
-        )}
-
-        <form onSubmit={handleChangePassword} className="space-y-4">
+        <form onSubmit={handleChangePassword} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <label className="block font-fredoka font-semibold text-[#2B3440] mb-1">Password Baru</label>
-            <input type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder="Min. 6 karakter" className="neu-input" />
+            <label style={{ display: 'block', fontFamily: 'Fredoka, sans-serif', fontWeight: 600, color: '#2B3440', marginBottom: '6px' }}>Password Baru</label>
+            <input type="password" value={newPassword} onChange={e => setNewPassword(e.target.value)} placeholder="Minimal 6 karakter" className="neu-input" />
           </div>
-          <button type="submit" disabled={changingPassword} className="neu-btn-primary">
+          {passwordMessage && (
+            <div style={{ padding: '12px 16px', background: passwordMessage.includes('berhasil') ? '#DCFCE7' : '#ffd9df', border: '2px solid #2B3440', borderRadius: '12px', fontFamily: 'Fredoka, sans-serif', fontSize: '14px', color: '#2B3440' }}>
+              {passwordMessage}
+            </div>
+          )}
+          <button type="submit" disabled={changingPassword} className="neu-btn-primary" style={{ alignSelf: 'flex-start' }}>
             {changingPassword ? <Loader2 size={18} className="animate-spin" /> : <Key size={18} />}
             {changingPassword ? 'Mengubah...' : 'Ganti Password'}
           </button>
         </form>
       </div>
 
-      <div className="neu-card p-5">
-        <h2 className="font-fredoka text-lg font-bold text-[#EF4444] mb-3">⚠️ Zona Bahaya</h2>
-        <p className="font-poppins text-sm text-[#6B7280] mb-4">Keluar dari akun Finansialku</p>
-        <button onClick={handleLogout} className="neu-btn-danger">
+      {/* Logout */}
+      <div className="neu-card" style={{ borderRadius: '24px', padding: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px' }}>
+          <div style={{ width: '36px', height: '36px', borderRadius: '10px', background: '#ffd9df', border: '2px solid #2B3440', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <LogOut size={18} color="#EF4444" />
+          </div>
+          <h2 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '1.1rem', fontWeight: 700, color: '#2B3440', margin: 0 }}>Keluar</h2>
+        </div>
+        <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '14px', color: '#9CA3AF', margin: '0 0 16px 0' }}>
+          Kamu akan keluar dari akun Finansialku kamu.
+        </p>
+        <button onClick={handleLogout} className="neu-btn-danger" style={{ alignSelf: 'flex-start' }}>
           <LogOut size={18} /> Keluar dari Akun
         </button>
       </div>
+
     </div>
   );
 }

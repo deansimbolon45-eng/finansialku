@@ -8,9 +8,9 @@ import type { SavingsGoal } from '@/types/database';
 import { Plus, Edit2, Trash2, PlusCircle, X, Loader2 } from 'lucide-react';
 
 const EMOJI_OPTIONS = ['🎯','🏠','🚗','✈️','💻','📱','🎓','💍','🏖️','🐶','🛍️','💰'];
-const COLOR_OPTIONS = ['#22C55E','#3B82F6','#8B5CF6','#EC4899','#F59E0B','#EF4444','#14B8A6','#F97316'];
+const COLOR_OPTIONS = ['#22C55E','#a5d8ff','#e197a7','#F59E0B','#EF4444','#ffd9df','#6bff8f','#F97316'];
 
-function GoalForm({ editData, onClose, onSuccess }: { editData?: SavingsGoal; onClose: () => void; onSuccess: () => void; }) {
+function GoalForm({ editData, onClose, onSuccess }: { editData?: SavingsGoal; onClose: () => void; onSuccess: () => void }) {
   const { addGoal, updateGoal } = useSavingsGoals();
   const [name, setName] = useState(editData?.name || '');
   const [targetAmount, setTargetAmount] = useState(editData?.target_amount?.toString() || '');
@@ -37,52 +37,53 @@ function GoalForm({ editData, onClose, onSuccess }: { editData?: SavingsGoal; on
 
   return createPortal(
     <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: '16px', boxSizing: 'border-box' }}>
-      <div className="neu-card bg-white w-full" style={{ maxWidth: '480px', maxHeight: '90vh', overflowY: 'auto' }}>
-        <div className="flex items-center justify-between p-5 border-b-[3px] border-[#2B3440]">
-          <h3 className="font-fredoka text-xl font-bold text-[#2B3440]">{editData ? 'Edit Target' : 'Buat Target Tabungan'} 🎯</h3>
-          <button onClick={onClose}><X size={22} /></button>
+      <div className="neu-card" style={{ background: 'white', width: '100%', maxWidth: '480px', maxHeight: '90vh', overflowY: 'auto', borderRadius: '24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '24px', borderBottom: '2px solid #2B3440' }}>
+          <h3 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '1.25rem', fontWeight: 700, color: '#2B3440', margin: 0 }}>
+            {editData ? 'Edit Target' : 'Buat Target Tabungan'} 🎯
+          </h3>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6B7280' }}><X size={22} /></button>
         </div>
-        <form onSubmit={handleSubmit} className="p-5 space-y-4">
+        <form onSubmit={handleSubmit} style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
-            <label className="block font-fredoka font-semibold text-[#2B3440] mb-2">Pilih Ikon</label>
-            <div className="flex flex-wrap gap-2">
+            <label style={{ display: 'block', fontFamily: 'Fredoka, sans-serif', fontWeight: 600, color: '#2B3440', marginBottom: '8px' }}>Pilih Ikon</label>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
               {EMOJI_OPTIONS.map(e => (
                 <button key={e} type="button" onClick={() => setIcon(e)}
-                  className={`w-10 h-10 text-xl rounded-[10px] border-2 transition-all ${icon === e ? 'border-[#2B3440] bg-[#DCFCE7] scale-110' : 'border-[#E5E7EB]'}`}>
+                  style={{ width: '40px', height: '40px', fontSize: '20px', borderRadius: '10px', border: `2px solid ${icon === e ? '#2B3440' : '#E5E7EB'}`, background: icon === e ? '#DCFCE7' : 'white', cursor: 'pointer', transition: 'all 0.1s ease', transform: icon === e ? 'scale(1.1)' : 'none' }}>
                   {e}
                 </button>
               ))}
             </div>
           </div>
           <div>
-            <label className="block font-fredoka font-semibold text-[#2B3440] mb-2">Warna</label>
-            <div className="flex gap-2">
+            <label style={{ display: 'block', fontFamily: 'Fredoka, sans-serif', fontWeight: 600, color: '#2B3440', marginBottom: '8px' }}>Warna</label>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
               {COLOR_OPTIONS.map(c => (
                 <button key={c} type="button" onClick={() => setColor(c)}
-                  className={`w-8 h-8 rounded-full border-[3px] transition-all ${color === c ? 'border-[#2B3440] scale-125' : 'border-transparent'}`}
-                  style={{ background: c }} />
+                  style={{ width: '32px', height: '32px', borderRadius: '50%', border: `3px solid ${color === c ? '#2B3440' : 'transparent'}`, background: c, cursor: 'pointer', transform: color === c ? 'scale(1.2)' : 'none', transition: 'all 0.1s ease' }} />
               ))}
             </div>
           </div>
           <div>
-            <label className="block font-fredoka font-semibold text-[#2B3440] mb-1">Nama Target</label>
+            <label style={{ display: 'block', fontFamily: 'Fredoka, sans-serif', fontWeight: 600, color: '#2B3440', marginBottom: '6px' }}>Nama Target</label>
             <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Contoh: Beli Laptop" required className="neu-input" />
           </div>
           <div>
-            <label className="block font-fredoka font-semibold text-[#2B3440] mb-1">Target Jumlah (Rp)</label>
+            <label style={{ display: 'block', fontFamily: 'Fredoka, sans-serif', fontWeight: 600, color: '#2B3440', marginBottom: '6px' }}>Target Jumlah (Rp)</label>
             <input type="number" value={targetAmount} onChange={e => setTargetAmount(e.target.value)} placeholder="0" required min="1" className="neu-input" />
           </div>
           <div>
-            <label className="block font-fredoka font-semibold text-[#2B3440] mb-1">Sudah Terkumpul (Rp)</label>
+            <label style={{ display: 'block', fontFamily: 'Fredoka, sans-serif', fontWeight: 600, color: '#2B3440', marginBottom: '6px' }}>Sudah Terkumpul (Rp)</label>
             <input type="number" value={currentAmount} onChange={e => setCurrentAmount(e.target.value)} placeholder="0" min="0" className="neu-input" />
           </div>
           <div>
-            <label className="block font-fredoka font-semibold text-[#2B3440] mb-1">Target Tanggal (opsional)</label>
+            <label style={{ display: 'block', fontFamily: 'Fredoka, sans-serif', fontWeight: 600, color: '#2B3440', marginBottom: '6px' }}>Target Tanggal (opsional)</label>
             <input type="date" value={targetDate} onChange={e => setTargetDate(e.target.value)} className="neu-input" />
           </div>
-          <div className="flex gap-3 pt-2">
-            <button type="button" onClick={onClose} className="neu-btn-secondary flex-1 justify-center">Batal</button>
-            <button type="submit" disabled={loading} className="neu-btn-primary flex-1 justify-center">
+          <div style={{ display: 'flex', gap: '12px', paddingTop: '8px' }}>
+            <button type="button" onClick={onClose} className="neu-btn-secondary" style={{ flex: 1, justifyContent: 'center' }}>Batal</button>
+            <button type="submit" disabled={loading} className="neu-btn-primary" style={{ flex: 1, justifyContent: 'center' }}>
               {loading ? <Loader2 size={18} className="animate-spin" /> : null}
               {loading ? 'Menyimpan...' : (editData ? 'Simpan' : 'Buat Target')}
             </button>
@@ -95,109 +96,157 @@ function GoalForm({ editData, onClose, onSuccess }: { editData?: SavingsGoal; on
 }
 
 export default function TabunganPage() {
-  const { goals, loading, deleteGoal, updateGoal, refetch } = useSavingsGoals();
+  const { goals, loading, deleteGoal, refetch } = useSavingsGoals();
   const [showForm, setShowForm] = useState(false);
   const [editData, setEditData] = useState<SavingsGoal | undefined>();
-  const [addingFundsId, setAddingFundsId] = useState<string | null>(null);
-  const [addAmount, setAddAmount] = useState('');
+  const [addingFunds, setAddingFunds] = useState<string | null>(null);
+  const [fundAmount, setFundAmount] = useState('');
+  const { updateGoal } = useSavingsGoals();
+
+  async function handleAddFunds(goal: SavingsGoal) {
+    const amount = Number(fundAmount);
+    if (!amount || amount <= 0) return;
+    await updateGoal(goal.id, { current_amount: goal.current_amount + amount });
+    setAddingFunds(null);
+    setFundAmount('');
+    refetch();
+  }
 
   async function handleDelete(id: string) {
-    if (!confirm('Hapus target ini?')) return;
+    if (!confirm('Hapus target tabungan ini?')) return;
     await deleteGoal(id);
   }
 
-  async function handleAddFunds(goal: SavingsGoal) {
-    if (!addAmount || Number(addAmount) <= 0) return;
-    const newAmount = Math.min(goal.current_amount + Number(addAmount), goal.target_amount);
-    await updateGoal(goal.id, { current_amount: newAmount, is_completed: newAmount >= goal.target_amount });
-    setAddingFundsId(null);
-    setAddAmount('');
-  }
+  const totalTarget = goals.reduce((s, g) => s + g.target_amount, 0);
+  const totalSaved  = goals.reduce((s, g) => s + g.current_amount, 0);
+  const overallPct  = totalTarget > 0 ? Math.round((totalSaved / totalTarget) * 100) : 0;
 
   return (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
-          <h1 className="font-fredoka text-2xl font-bold text-[#2B3440]">Target Tabungan 🐷</h1>
-          <p className="font-poppins text-sm text-[#9CA3AF]">Kelola tujuan keuanganmu</p>
+          <h1 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '1.75rem', fontWeight: 700, color: '#2B3440', margin: 0 }}>Target Tabungan 🎯</h1>
+          <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '14px', color: '#9CA3AF', margin: 0 }}>Wujudkan impianmu satu target sekaligus</p>
         </div>
         <button onClick={() => { setEditData(undefined); setShowForm(true); }} className="neu-btn-primary">
-          <Plus size={18} /> Buat Target
+          <Plus size={18} /> Tambah Target
         </button>
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        <div className="neu-card p-4 text-center">
-          <p className="font-fredoka text-2xl font-bold text-[#2B3440]">{goals.length}</p>
-          <p className="font-poppins text-xs text-[#9CA3AF]">Total Target</p>
+      {/* Summary */}
+      {goals.length > 0 && (
+        <div className="neu-card" style={{ background: '#22C55E', borderRadius: '24px', padding: '24px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+            <div>
+              <p style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '14px', fontWeight: 600, color: '#004b1e', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>Total Tabungan</p>
+              <h2 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '32px', fontWeight: 700, color: '#004b1e', margin: '4px 0 0 0' }}>{formatCurrency(totalSaved)}</h2>
+              <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '13px', color: 'rgba(0,75,30,0.8)', margin: 0 }}>dari {formatCurrency(totalTarget)}</p>
+            </div>
+            <span style={{ padding: '6px 16px', background: 'rgba(255,255,255,0.3)', border: '2px solid rgba(255,255,255,0.5)', borderRadius: '9999px', fontFamily: 'Fredoka, sans-serif', fontSize: '18px', fontWeight: 700, color: 'white' }}>
+              {overallPct}%
+            </span>
+          </div>
+          <div className="neu-progress" style={{ background: 'rgba(0,0,0,0.15)', height: '12px' }}>
+            <div className="neu-progress-fill" style={{ width: `${overallPct}%`, background: 'white' }} />
+          </div>
         </div>
-        <div className="neu-card p-4 text-center">
-          <p className="font-fredoka text-2xl font-bold text-[#22C55E]">{goals.filter(g => g.is_completed).length}</p>
-          <p className="font-poppins text-xs text-[#9CA3AF]">Tercapai</p>
-        </div>
-        <div className="neu-card p-4 text-center">
-          <p className="font-fredoka text-2xl font-bold text-[#F59E0B]">{goals.filter(g => !g.is_completed).length}</p>
-          <p className="font-poppins text-xs text-[#9CA3AF]">Dalam Proses</p>
-        </div>
-      </div>
+      )}
 
+      {/* Daftar goals */}
       {loading ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {[1,2,3].map(i => <div key={i} className="h-48 neu-card animate-pulse bg-[#F3F4F6]" />)}
+        <div style={{ textAlign: 'center', padding: '48px' }}>
+          <div style={{ width: '32px', height: '32px', border: '3px solid #22C55E', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto' }} />
         </div>
       ) : goals.length === 0 ? (
-        <div className="neu-card p-12 text-center">
-          <p className="text-5xl mb-3">🎯</p>
-          <p className="font-fredoka text-xl font-bold text-[#2B3440] mb-2">Belum ada target!</p>
-          <p className="font-poppins text-sm text-[#9CA3AF] mb-4">Mulai buat target tabunganmu sekarang</p>
-          <button onClick={() => setShowForm(true)} className="neu-btn-primary"><Plus size={18} /> Buat Target Pertama</button>
+        <div className="neu-card" style={{ borderRadius: '24px', padding: '64px', textAlign: 'center' }}>
+          <p style={{ fontSize: '48px', marginBottom: '12px' }}>🎯</p>
+          <h3 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '1.25rem', color: '#2B3440', margin: '0 0 8px 0' }}>Belum ada target tabungan</h3>
+          <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '14px', color: '#9CA3AF', margin: '0 0 24px 0' }}>Mulai buat target pertamamu!</p>
+          <button onClick={() => setShowForm(true)} className="neu-btn-primary">
+            <Plus size={18} /> Buat Target Pertama
+          </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
           {goals.map(goal => {
-            const percent = Math.min(Math.round((goal.current_amount / goal.target_amount) * 100), 100);
+            const pct = Math.min(Math.round((goal.current_amount / goal.target_amount) * 100), 100);
+            const isCompleted = pct >= 100;
             return (
-              <div key={goal.id} className="neu-card p-5 space-y-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-[10px] border-[3px] border-[#2B3440] flex items-center justify-center text-2xl" style={{ background: `${goal.color}20` }}>
+              <div key={goal.id} className="neu-card" style={{ borderRadius: '24px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {/* Header kartu goal */}
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: goal.color || '#22C55E', border: '2px solid #2B3440', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px' }}>
                       {goal.icon}
                     </div>
                     <div>
-                      <h3 className="font-fredoka text-lg font-bold text-[#2B3440]">{goal.name}</h3>
-                      {goal.target_date && <p className="font-poppins text-xs text-[#9CA3AF]">Target: {formatDate(goal.target_date)}</p>}
+                      <h3 style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '16px', fontWeight: 700, color: '#2B3440', margin: 0 }}>{goal.name}</h3>
+                      {goal.target_date && (
+                        <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '12px', color: '#9CA3AF', margin: 0 }}>Target: {formatDate(goal.target_date)}</p>
+                      )}
                     </div>
                   </div>
-                  {goal.is_completed && <span className="neu-badge bg-[#DCFCE7] text-[#22C55E]">✅ Tercapai!</span>}
+                  {isCompleted && (
+                    <span style={{ padding: '4px 10px', background: '#22C55E', border: '2px solid #2B3440', borderRadius: '9999px', fontFamily: 'Fredoka, sans-serif', fontSize: '11px', fontWeight: 700, color: 'white' }}>✅ Selesai</span>
+                  )}
                 </div>
 
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center">
-                    <p className="font-poppins text-sm text-[#6B7280]">{formatCurrency(goal.current_amount)} / {formatCurrency(goal.target_amount)}</p>
-                    <p className="font-fredoka font-bold text-lg" style={{ color: goal.color }}>{percent}%</p>
+                {/* Progress */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <p style={{ fontFamily: 'Fredoka, sans-serif', fontSize: '20px', fontWeight: 700, color: '#2B3440', margin: 0 }}>{formatCurrency(goal.current_amount)}</p>
+                    <span style={{ padding: '2px 10px', background: '#a5d8ff', border: '2px solid #2B3440', borderRadius: '8px', fontFamily: 'Fredoka, sans-serif', fontSize: '12px', fontWeight: 700, boxShadow: '2px 2px 0px #2B3440' }}>{pct}%</span>
                   </div>
                   <div className="neu-progress">
-                    <div className="neu-progress-fill" style={{ width: `${percent}%`, background: goal.color }} />
+                    <div className="neu-progress-fill" style={{ width: `${pct}%`, background: goal.color || '#22C55E' }} />
                   </div>
+                  <p style={{ fontFamily: 'Plus Jakarta Sans, sans-serif', fontSize: '12px', color: '#9CA3AF', margin: 0 }}>
+                    dari {formatCurrency(goal.target_amount)}
+                  </p>
                 </div>
 
-                {addingFundsId === goal.id ? (
-                  <div className="flex gap-2">
-                    <input type="number" value={addAmount} onChange={e => setAddAmount(e.target.value)} placeholder="Jumlah (Rp)" className="neu-input flex-1 text-sm py-2" autoFocus />
-                    <button onClick={() => handleAddFunds(goal)} className="neu-btn-primary py-2 px-3 text-sm">✓</button>
-                    <button onClick={() => { setAddingFundsId(null); setAddAmount(''); }} className="neu-btn-secondary py-2 px-3 text-sm">✕</button>
+                {/* Tambah dana */}
+                {addingFunds === goal.id ? (
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <input
+                      type="number"
+                      value={fundAmount}
+                      onChange={e => setFundAmount(e.target.value)}
+                      placeholder="Jumlah (Rp)"
+                      className="neu-input"
+                      style={{ flex: 1, paddingTop: '8px', paddingBottom: '8px', fontSize: '14px' }}
+                    />
+                    <button onClick={() => handleAddFunds(goal)} className="neu-btn-primary" style={{ padding: '8px 16px', borderRadius: '10px', fontSize: '14px' }}>Simpan</button>
+                    <button onClick={() => { setAddingFunds(null); setFundAmount(''); }} className="neu-btn-secondary" style={{ padding: '8px 16px', borderRadius: '10px', fontSize: '14px' }}>✕</button>
                   </div>
                 ) : (
-                  <div className="flex gap-2">
-                    {!goal.is_completed && (
-                      <button onClick={() => setAddingFundsId(goal.id)} className="neu-btn-primary flex-1 justify-center text-sm py-2">
-                        <PlusCircle size={16} /> Tambah Dana
-                      </button>
-                    )}
-                    <button onClick={() => { setEditData(goal); setShowForm(true); }} className="p-2 rounded-[10px] border-2 border-[#E5E7EB] hover:border-[#22C55E] hover:text-[#22C55E] transition-all"><Edit2 size={16} /></button>
-                    <button onClick={() => handleDelete(goal.id)} className="p-2 rounded-[10px] border-2 border-[#E5E7EB] hover:border-[#EF4444] hover:text-[#EF4444] transition-all"><Trash2 size={16} /></button>
-                  </div>
+                  <button
+                    onClick={() => setAddingFunds(goal.id)}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', padding: '10px', borderRadius: '12px', border: '2px dashed #2B3440', background: '#f3fcef', cursor: 'pointer', fontFamily: 'Fredoka, sans-serif', fontSize: '14px', fontWeight: 600, color: '#22C55E', width: '100%', transition: 'all 0.15s ease' }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#DCFCE7'}
+                    onMouseLeave={e => e.currentTarget.style.background = '#f3fcef'}
+                  >
+                    <PlusCircle size={16} /> Tambah Dana
+                  </button>
                 )}
+
+                {/* Edit & hapus */}
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  <button onClick={() => { setEditData(goal); setShowForm(true); }}
+                    style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '8px', borderRadius: '10px', border: '2px solid #2B3440', background: 'white', cursor: 'pointer', fontFamily: 'Fredoka, sans-serif', fontSize: '13px', fontWeight: 600, boxShadow: '2px 2px 0px #2B3440', transition: 'all 0.1s ease' }}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'translate(-1px,-1px)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'none'}>
+                    <Edit2 size={14} /> Edit
+                  </button>
+                  <button onClick={() => handleDelete(goal.id)}
+                    style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '8px', borderRadius: '10px', border: '2px solid #EF4444', background: 'white', cursor: 'pointer', fontFamily: 'Fredoka, sans-serif', fontSize: '13px', fontWeight: 600, color: '#EF4444', boxShadow: '2px 2px 0px #EF4444', transition: 'all 0.1s ease' }}
+                    onMouseEnter={e => { e.currentTarget.style.background = '#FEF2F2'; e.currentTarget.style.transform = 'translate(-1px,-1px)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = 'white'; e.currentTarget.style.transform = 'none'; }}>
+                    <Trash2 size={14} /> Hapus
+                  </button>
+                </div>
               </div>
             );
           })}

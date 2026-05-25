@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard, ArrowLeftRight, PiggyBank,
-  BarChart3, Settings, TrendingUp,
+  BarChart3, Settings, HelpCircle,
 } from 'lucide-react';
 
 const navItems = [
@@ -19,23 +19,37 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 h-full flex flex-col border-r-4 border-[#2B3440] bg-white">
-      <div className="p-4 border-b-4 border-[#2B3440] flex items-center">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <div style={{ width: '40px', height: '40px', background: '#22C55E', borderRadius: '10px', border: '2px solid #2B3440', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '20px', flexShrink: 0 }}>
-            💰
-          </div>
-          <div>
-            <h1 className="font-fredoka text-xl font-bold text-[#2B3440]">Finansialku</h1>
-            <p className="text-xs text-[#6B7280] font-poppins">Personal Finance</p>
-          </div>
-        </div>
+    <aside
+      style={{
+        width: '256px',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        background: '#FFFFFF',
+        borderRight: '2px solid #2B3440',
+        padding: '32px 24px',
+        flexShrink: 0,
+      }}
+    >
+      {/* Logo teks besar hijau — sesuai stitch */}
+      <div style={{ marginBottom: '48px' }}>
+        <h1
+          style={{
+            fontFamily: 'Fredoka, sans-serif',
+            fontSize: '2rem',
+            fontWeight: 700,
+            color: '#22C55E',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.2,
+            margin: 0,
+          }}
+        >
+          Finansialku
+        </h1>
       </div>
 
-      <nav className="flex-1 p-4 space-y-2">
-        <p className="font-fredoka text-xs text-[#9CA3AF] uppercase tracking-wider mb-3 px-2">
-          Menu Utama
-        </p>
+      {/* Navigasi */}
+      <nav style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {navItems.map(({ href, icon: Icon, label }) => {
           const isActive = pathname === href;
           return (
@@ -47,15 +61,37 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <div className="p-4 border-t-4 border-[#2B3440]">
-        <div className="neu-card p-3 bg-[#DCFCE7]">
-          <div className="flex items-center gap-2">
-            <TrendingUp size={18} className="text-[#22C55E]" />
-            <div>
-              <p className="font-fredoka text-sm font-semibold text-[#2B3440]">Tip Keuangan</p>
-              <p className="font-poppins text-xs text-[#6B7280]">Hemat 20% dari penghasilan!</p>
-            </div>
+      {/* Footer card — bg-tertiary-fixed (#ffd9df) sesuai stitch */}
+      <div style={{ marginTop: 'auto' }}>
+        <div
+          className="neu-card"
+          style={{ background: '#ffd9df', padding: '16px', borderRadius: '12px' }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
+            <HelpCircle size={16} color="#2B3440" />
+            <p
+              style={{
+                fontFamily: 'Fredoka, sans-serif',
+                fontSize: '14px',
+                fontWeight: 700,
+                color: '#2B3440',
+                margin: 0,
+              }}
+            >
+              Butuh Bantuan?
+            </p>
           </div>
+          <p
+            style={{
+              fontFamily: 'Plus Jakarta Sans, sans-serif',
+              fontSize: '12px',
+              color: '#2B3440',
+              opacity: 0.8,
+              margin: 0,
+            }}
+          >
+            Hubungi tim support kami kapan saja.
+          </p>
         </div>
       </div>
     </aside>

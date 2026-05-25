@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="id">
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
       </head>
@@ -22,9 +22,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           position="top-right"
           toastOptions={{
             style: {
-              fontFamily: 'Poppins, sans-serif',
-              border: '3px solid #2B3440',
-              borderRadius: '10px',
+              fontFamily: 'Plus Jakarta Sans, sans-serif',
+              border: '2px solid #2B3440',
+              borderRadius: '12px',
               boxShadow: '4px 4px 0px #2B3440',
             },
           }}
