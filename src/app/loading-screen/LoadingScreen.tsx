@@ -7,7 +7,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    // Progress bar animation
+    // Progress bar animation - diperlambat
     const interval = setInterval(() => {
       setProgress(prev => {
         if (prev >= 100) {
@@ -16,13 +16,13 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
         }
         return prev + 2;
       });
-    }, 30);
+    }, 50); // sebelumnya 30, sekarang 50
 
-    // Fade out setelah 2 detik
+    // Fade out setelah 3.5 detik
     const timer = setTimeout(() => {
       setFadeOut(true);
       setTimeout(onFinish, 500);
-    }, 2000);
+    }, 3500); // sebelumnya 2000, sekarang 3500
 
     return () => {
       clearInterval(interval);
@@ -45,7 +45,6 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
         transition: 'opacity 0.5s ease',
       }}
     >
-      {/* Logo */}
       <div
         style={{
           display: 'flex',
@@ -116,7 +115,7 @@ export default function LoadingScreen({ onFinish }: { onFinish: () => void }) {
               width: `${progress}%`,
               background: '#22C55E',
               borderRadius: '100px',
-              transition: 'width 0.03s linear',
+              transition: 'width 0.05s linear',
             }}
           />
         </div>
