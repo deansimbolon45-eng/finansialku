@@ -31,7 +31,7 @@ export default function DashboardPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="neu-card p-5" style={{ background: '#22C55E' }}>
           <div className="flex items-center justify-between mb-3">
-           <p className="font-fredoka text-white text-sm font-light opacity-90">Saldo Saat Ini</p>
+           <p className="font-fredoka text-white text-sm opacity-90">Saldo Saat Ini</p>
 <div className="w-12 h-12 bg-white bg-opacity-20 rounded-[10px] flex items-center justify-center">
   <Wallet size={26} className="text-white" />
             </div>
@@ -42,7 +42,7 @@ export default function DashboardPage() {
 
         <div className="neu-card p-5">
           <div className="flex items-center justify-between mb-3">
-            <p className="font-fredoka text-[#6B7280] text-sm font-light">Total Pemasukan</p>
+            <p className="font-fredoka text-[#6B7280] text-sm">Total Pemasukan</p>
 <div className="w-12 h-12 bg-[#DCFCE7] rounded-[10px] flex items-center justify-center">
   <TrendingUp size={26} className="text-[#22C55E]" />
             </div>
@@ -53,7 +53,7 @@ export default function DashboardPage() {
 
         <div className="neu-card p-5">
           <div className="flex items-center justify-between mb-3">
-            <p className="font-fredoka text-[#6B7280] text-sm font-light">Total Pengeluaran</p>
+            <p className="font-fredoka text-[#6B7280] text-sm">Total Pengeluaran</p>
 <div className="w-12 h-12 bg-red-50 rounded-[10px] flex items-center justify-center">
   <TrendingDown size={26} className="text-[#EF4444]" />
             </div>
